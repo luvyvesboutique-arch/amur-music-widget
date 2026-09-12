@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    #musicArea {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="musicArea"></div>
+
+  <audio id="music" loop>
+    <source src="YOUR-MUSIC-FILE.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const musicArea = document.getElementById("musicArea");
+    const music = document.getElementById("music");
+
+    musicArea.addEventListener("click", async () => {
+      try {
+        if (music.paused) {
+          await music.play();
+        } else {
+          music.pause();
+        }
+      } catch (error) {
+        console.log("Playback was blocked:", error);
+      }
+    });
+  </script>
+
+</body>
+</html>
