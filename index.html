@@ -10,13 +10,15 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      background: transparent;
       overflow: hidden;
     }
 
     #musicArea {
-      width: 100%;
-      height: 100%;
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: transparent;
       cursor: pointer;
     }
   </style>
@@ -26,24 +28,26 @@
 
   <div id="musicArea"></div>
 
-  <audio id="music" loop>
-    <source src="test.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="music" src="test.mp3" loop></audio>
 
   <script>
     const musicArea = document.getElementById("musicArea");
     const music = document.getElementById("music");
 
-    musicArea.addEventListener("click", async () => {
-      try {
-        if (music.paused) {
-          await music.play();
-        } else {
-          music.pause();
-        }
-      } catch (error) {
-        console.log("Playback was blocked:", error);
+    musicArea.addEventListener("click", function () {
+
+      if (music.paused) {
+        music.play()
+          .then(() => {
+            console.log("Music started!");
+          })
+          .catch(error => {
+            console.error("Music failed:", error);
+          });
+      } else {
+        music.pause();
       }
+
     });
   </script>
 
